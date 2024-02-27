@@ -1,10 +1,15 @@
-function App() {
+import { ThemeProvider } from "styled-components";
+import GlobalStyle from "./global/globalStyles";
+import theme from "./theme/theme";
+
+const App = () => {
 
   return (
-    <>
-      Dev-Hub
-    </>
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      Dev Hub
+    </ThemeProvider>
   )
 }
 
-export default App
+export default App;
