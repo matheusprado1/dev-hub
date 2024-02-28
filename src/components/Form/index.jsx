@@ -3,15 +3,15 @@ import Input from "../Input";
 import Button from "../Button";
 import FormContainer from "./style";
 
-const Form = ({ title, fields, submitText, ...props }) => {
+const Form = ({ title, fields, onSubmit, submitText, ...props }) => {
   return (
     <FormContainer>
       <h2>{title}</h2>
-      <form>
+      <form onSubmit={onSubmit}>
         {fields.map((field, index) => (
           <Label key={index}>
             {field.label}
-            <Input type={field.type} placeholder={field.placeholder} />
+            <Input type={field.type} placeholder={field.placeholder} {...field.register} options={field.options} />
           </Label>
         ))}
         <Button type="submit" {...props}>
@@ -21,5 +21,6 @@ const Form = ({ title, fields, submitText, ...props }) => {
     </FormContainer>
   )
 }
+
 
 export default Form;
