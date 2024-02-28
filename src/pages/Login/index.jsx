@@ -7,6 +7,8 @@ import Form from "../../components/Form";
 import Button from "../../components/Button";
 import { api } from "../../services/api";
 
+import { toast } from 'react-toastify';
+
 const Login = () => {
   const { register, handleSubmit } = useForm();
 
@@ -19,10 +21,13 @@ const Login = () => {
         password: formData.password,
       });
 
+      toast.success("Login realizado com sucesso!");
+
       console.log(response.data); // Dados retornados pela API
       // Aqui você pode manipular a resposta da API, como armazenar o token de acesso no localStorage
     } catch (error) {
       console.error(error); // Tratamento de erros
+      toast.error("Ops! Algo deu errado");
     }
   };
 
