@@ -6,11 +6,15 @@ import Logo from "../../components/Logo";
 import Form from "../../components/Form";
 import Button from "../../components/Button";
 import { api } from "../../services/api";
+import { useNavigate } from "react-router-dom";
 
 import { toast } from 'react-toastify';
 
-const Login = () => {
+const Login = ({ onLoginSuccess }) => {
   const { register, handleSubmit } = useForm();
+
+  const navigate = useNavigate();
+
 
   const submit = async (formData) => {
 
@@ -23,8 +27,15 @@ const Login = () => {
 
       toast.success("Login realizado com sucesso!");
 
-      console.log(response.data); // Dados retornados pela API
-      // Aqui você pode manipular a resposta da API, como armazenar o token de acesso no localStorage
+      const userData = response.data.user;
+      // console.log(userData);
+
+      onLoginSuccess(userData);
+
+      navigate("/dashboard");
+
+      return userData;
+
     } catch (error) {
       console.error(error); // Tratamento de erros
       toast.error("Ops! Algo deu errado");
