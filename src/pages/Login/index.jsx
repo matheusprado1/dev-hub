@@ -28,8 +28,9 @@ const Login = ({ onLoginSuccess }) => {
       toast.success("Login realizado com sucesso!");
 
       const userData = response.data.user;
-      // console.log(userData);
-
+      const token = response.data.token;
+      // console.log(response.data)
+      localStorage.setItem("token", token);
       onLoginSuccess(userData);
 
       navigate("/dashboard");
