@@ -75,10 +75,11 @@ const Register = () => {
           />
           <Input
             type="password"
-            id="confirmPassoword"
+            id="confirmPassword"
             placeholder="Confirme sua senha"
             label="Confirmar Senha"
-          // error={errors.password}
+            {...register("confirmPassword")}
+            error={errors?.confirmPassword}
           />
           <Input
             type="text"
@@ -100,10 +101,12 @@ const Register = () => {
             options={[
               { value: '', label: 'Selecione uma opção' },
               { value: 'Primeiro módulo (Introdução ao Frontend)', label: 'Módulo 1' },
-              { value: 'Segundo módulo (Frontend Avançado)', label: 'Módulo 1' },
+              { value: 'Segundo módulo (Frontend Avançado)', label: 'Módulo 2' },
               { value: 'Terceiro módulo (Introdução ao Backend)', label: 'Módulo 3' },
               { value: 'Quarto módulo (Backend Avançado)', label: 'Módulo 4' }
             ]}
+            {...register("course_module")}
+            error={errors.course_module}
           />
           <Button type="submit">
             Entrar
