@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-const styledMessage = styled.p`
+const StyledMessage = styled.span`
 color: ${props => props.theme.colors.negative}
 
 `
-export default styledMessage;
+export default StyledMessage;

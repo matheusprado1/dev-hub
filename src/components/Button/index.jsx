@@ -1,10 +1,10 @@
-import ButtonContainer from "./style";
+import StyledButton from "./style";
 
 const Button = ({ children, onClick, ...props }) => {
   return (
-    <ButtonContainer {...props} onClick={onClick}>
+    <StyledButton {...props} onClick={onClick}>
       {children}
-    </ButtonContainer>
+    </StyledButton>
   )
 }
 

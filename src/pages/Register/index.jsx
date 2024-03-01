@@ -1,17 +1,24 @@
-import Layout from "../../components/Layout/styles";
-import Logo from "../../components/Logo";
-import Input from "../../components/Input";
-import { RegisterFormContainer, FlexContainer } from "./style";
-import Button from "../../components/Button";
-import Select from "../../components/Select";
 import { useForm } from "react-hook-form";
-import { api } from "../../services/api";
+import { useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { registerSchema } from "../../schemas/registerSchema";
-
+import { api } from "../../services/api";
+import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 
+import Layout from "../../components/Layout/style";
+import Logo from "../../components/Logo";
+import Input from "../../components/Input";
+import Select from "../../components/Select";
+import Button from "../../components/Button";
+import StyledTitle from "../../components/Title/style";
+
+import { RegisterFormContainer, FlexContainer } from "./style";
+import { registerSchema } from "../../schemas/registerSchema";
+
+
 const Register = () => {
+
+  const navigate = useNavigate();
 
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: zodResolver(registerSchema)
@@ -28,9 +35,11 @@ const Register = () => {
         contact: formData.contact,
         course_module: formData.course_module
       });
-
+      toast.success("Registro realizado com sucesso!");
+      navigate("/");
       console.log(response.data);
     } catch (error) {
+      toast.error("Ops! Algo deu errado");
       console.error(error);
     }
   };
@@ -40,13 +49,13 @@ const Register = () => {
       <FlexContainer>
         <Logo>Dev Hub</Logo>
         <Link to="/">
-          <Button>
+          <Button $hover="grey2">
             Voltar
           </Button>
         </Link>
       </FlexContainer>
       <RegisterFormContainer>
-        <h2>Crie sua Conta</h2>
+        <StyledTitle>Crie sua Conta</StyledTitle>
         <p>Rápido e gratís, vamos nessa</p>
         <form onSubmit={handleSubmit(submit)} noValidate>
           <Input
@@ -108,8 +117,8 @@ const Register = () => {
             {...register("course_module")}
             error={errors.course_module}
           />
-          <Button type="submit">
-            Entrar
+          <Button type="submit" $background="primaryNegative">
+            Cadastrar
           </Button>
         </form>
       </RegisterFormContainer>

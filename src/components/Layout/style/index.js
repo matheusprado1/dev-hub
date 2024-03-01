@@ -5,8 +5,8 @@ const Layout = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height:  100vh;
   width:  100%;
+  height: ${props => props.$height};
 `;
 
 export default Layout;
