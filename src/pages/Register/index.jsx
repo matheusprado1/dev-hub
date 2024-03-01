@@ -1,16 +1,21 @@
 import Layout from "../../components/Layout/styles";
 import Logo from "../../components/Logo";
-import Form from "../../components/Form";
+import Input from "../../components/Input";
 import { RegisterFormContainer, FlexContainer } from "./style";
 import Button from "../../components/Button";
+import Select from "../../components/Select";
 import { useForm } from "react-hook-form";
 import { api } from "../../services/api";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { registerSchema } from "../../schemas/registerSchema";
 
 import { Link } from "react-router-dom";
 
 const Register = () => {
 
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm({
+    resolver: zodResolver(registerSchema)
+  });
 
   const submit = async (formData) => {
     console.log(formData);
@@ -34,39 +39,80 @@ const Register = () => {
     <Layout>
       <FlexContainer>
         <Logo>Dev Hub</Logo>
-        <Button>
-          <Link to="/">
+        <Link to="/">
+          <Button>
             Voltar
-          </Link>
-        </Button>
+          </Button>
+        </Link>
       </FlexContainer>
       <RegisterFormContainer>
-        <Form
-          title="Crie sua conta"
-          onSubmit={handleSubmit(submit)}
-          noValidate
-          fields={[
-            { label: "Nome", type: "text", placeholder: "Digite aqui seu nome", register: register("name") },
-            { label: "Email", type: "email", placeholder: "Digite aqui seu email", register: register("email") },
-            { label: "Senha", type: "password", placeholder: "Digite aqui sua senha", register: register("password") },
-            { label: "Confirmar Senha", type: "password", placeholder: "Confirme sua senha" },
-            { label: "Bio", type: "text", placeholder: "Fale sobre você", register: register("bio") },
-            { label: "Contato", type: "text", placeholder: "Opção de contato", register: register("contact") },
-            {
-              label: "Módulo de Curso", type: "select", placeholder: "Escolha um módulo", register: register("course_module"), options: [
-                { value: "module1", label: "Módulo 1" },
-                { value: "module2", label: "Módulo 2" },
-                { value: "module3", label: "Módulo 3" },
-
-              ]
-            }
-          ]}
-          submitText="Cadastrar"
-          $background="primary"
-        />
+        <h2>Crie sua Conta</h2>
+        <p>Rápido e gratís, vamos nessa</p>
+        <form onSubmit={handleSubmit(submit)} noValidate>
+          <Input
+            type="text"
+            id="name"
+            placeholder="Digite seu nome"
+            label="Nome"
+            {...register("name")}
+            error={errors.name}
+          />
+          <Input
+            type="email"
+            id="email"
+            placeholder="Digite seu e-mail"
+            label="E-mail"
+            {...register("email")}
+            error={errors.email}
+          />
+          <Input
+            type="password"
+            id="password"
+            placeholder="Digite sua senha"
+            label="Senha"
+            {...register("password")}
+            error={errors.password}
+          />
+          <Input
+            type="password"
+            id="confirmPassoword"
+            placeholder="Confirme sua senha"
+            label="Confirmar Senha"
+          // error={errors.password}
+          />
+          <Input
+            type="text"
+            id="bio"
+            placeholder="Fale sobre você"
+            label="Bio"
+            {...register("bio")}
+            error={errors.bio}
+          />
+          <Input
+            type="text"
+            id="contact"
+            placeholder="Digite seu contato"
+            label="Contato"
+            {...register("contact")}
+            error={errors.contact}
+          />
+          <Select
+            options={[
+              { value: '', label: 'Selecione uma opção' },
+              { value: 'Primeiro módulo (Introdução ao Frontend)', label: 'Módulo 1' },
+              { value: 'Segundo módulo (Frontend Avançado)', label: 'Módulo 1' },
+              { value: 'Terceiro módulo (Introdução ao Backend)', label: 'Módulo 3' },
+              { value: 'Quarto módulo (Backend Avançado)', label: 'Módulo 4' }
+            ]}
+          />
+          <Button type="submit">
+            Entrar
+          </Button>
+        </form>
       </RegisterFormContainer>
     </Layout>
-  )
+
+  );
 }
 
 export default Register;

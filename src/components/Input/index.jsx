@@ -1,22 +1,19 @@
 import { forwardRef } from "react";
-import InputContainer from "./style"
+import { InputContainer, StyledInput } from "./style";
 
 // eslint-disable-next-line react/display-name
-const Input = forwardRef(({ type, register, options, ...rest }, ref) => {
-  // Verifica se o tipo é 'select' e renderiza um elemento select, caso contrário renderiza um InputContainer
-  if (type === 'select') {
-    return (
-      <select ref={ref} {...rest} {...register}>
-        {options.map((option, index) => (
-          <option key={index} value={option.value}>{option.label}</option>
-        ))}
-      </select>
-    );
-  } else {
-    return (
-      <InputContainer ref={ref} {...rest} {...register} />
-    );
-  }
-});
+const Input = forwardRef(({ label, error, ...rest }, ref) => {
+  return (
+    <InputContainer>
+      <label>
+        {label}
+        <StyledInput ref={ref} {...rest} />
+        {error ? <p>{error.message}</p> : null}
+      </label>
+    </InputContainer>
+  )
+})
 
 export default Input;
+
+

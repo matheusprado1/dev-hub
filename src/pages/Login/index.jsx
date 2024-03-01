@@ -1,24 +1,25 @@
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { api } from "../../services/api";
 import { Link } from "react-router-dom";
 import LoginFormContainer from "./style";
 import Layout from "../../components/Layout/styles";
 import Logo from "../../components/Logo";
-import Form from "../../components/Form";
 import Button from "../../components/Button";
-import { api } from "../../services/api";
-import { useNavigate } from "react-router-dom";
+import { loginSchema } from "../../schemas/loginSchema";
+import Input from "../../components/Input";
 
 import { toast } from 'react-toastify';
 
 const Login = ({ onLoginSuccess }) => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm({
+    resolver: zodResolver(loginSchema)
+  });
 
   const navigate = useNavigate();
 
-
   const submit = async (formData) => {
-
-    console.log(formData)
     try {
       const response = await api.post("/sessions", {
         email: formData.email,
@@ -29,45 +30,55 @@ const Login = ({ onLoginSuccess }) => {
 
       const userData = response.data.user;
       const token = response.data.token;
-      // console.log(response.data)
+
       localStorage.setItem("token", token);
       onLoginSuccess(userData);
 
       navigate("/dashboard");
 
       return userData;
-
     } catch (error) {
-      console.error(error); // Tratamento de erros
+      console.error(error);
       toast.error("Ops! Algo deu errado");
     }
   };
-
 
   return (
     <Layout>
       <Logo>Dev Hub</Logo>
       <LoginFormContainer>
-        <Form
-          onSubmit={handleSubmit(submit)}
-          noValidate
-          title="Login"
-          fields={[
-            { label: "Email", type: "email", placeholder: "seuemail@mail.com", register: register("email") },
-            { label: "Senha", type: "password", placeholder: "******", register: register("password") }
-          ]}
-          submitText="Entrar"
-          $background="primary"
-        />
-        <p>Ainda não tem conta?</p>
-        <Button>
-          <Link to="/register">
+        <form onSubmit={handleSubmit(submit)} noValidate>
+          <Input
+            type="text"
+            id="email"
+            placeholder="Digite seu email"
+            label="E-mail"
+            {...register("email")}
+            error={errors.email}
+          />
+          <Input
+            type="password"
+            id="password"
+            placeholder="Digite sua senha"
+            label="Senha"
+            {...register("password")}
+            error={errors.password}
+          />
+          <Button type="submit">
+            Entrar
+          </Button>
+        </form>
+        <p>Ainda não possui uma conta?</p>
+        <Link to="/register">
+          <Button type="submit">
             Cadastrar
-          </Link>
-        </Button>
+          </Button>
+        </Link>
       </LoginFormContainer>
     </Layout>
-  )
+
+  );
 }
+
 
 export default Login;
