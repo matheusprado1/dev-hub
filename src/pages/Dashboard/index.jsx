@@ -15,12 +15,16 @@ const Dashboard = ({ user, onLogout }) => {
     onLogout();
     navigate("/");
   };
-  // console.log(user)
+
   return (
     <>
       <HeaderContainer>
         <Logo>Dev Hub</Logo>
-        <Button onClick={handleLogoutClick}>Sair</Button>
+        <Button onClick={handleLogoutClick}
+          $hover="grey2"
+          $width="10%">
+          Sair
+        </Button>
       </HeaderContainer>
       <InfoContainer>
         <h2>Olá, {user ? user.name : "Usuário"}</h2>

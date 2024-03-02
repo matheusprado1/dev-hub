@@ -8,6 +8,8 @@ padding: 17px;
 align-items: center;
 border-bottom: 1px solid ${props => props.theme.colors.grey3};
 
+
+
 `
 
 export const InfoContainer = styled.div`

@@ -45,7 +45,7 @@ const Register = () => {
   };
 
   return (
-    <Layout>
+    <Layout $height="100vh">
       <FlexContainer>
         <Logo>Dev Hub</Logo>
         <Link to="/">

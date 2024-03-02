@@ -7,8 +7,7 @@ const StyledSelect = styled.select`
   height: 30px;
   padding: 0 17px;
   width: 100%;
-
-
+  color: ${props => props.theme.colors.grey0};
 `
 
 export default StyledSelect;

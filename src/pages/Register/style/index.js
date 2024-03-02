@@ -3,8 +3,7 @@ import styled from "styled-components";
 export const RegisterFormContainer = styled.div`
  display: flex;
   flex-direction: column;
-  gap:  17px;
-  padding: 34px 17px;
+  padding: 10px 17px;
   text-align: center;
   width:  300px;
   border-radius:  4px;

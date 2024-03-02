@@ -4,7 +4,7 @@ const LoginFormContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap:  17px;
-  padding: 34px 17px;
+  padding: 20px 17px;
   text-align: center;
   width:  300px;
   border-radius:  4px;

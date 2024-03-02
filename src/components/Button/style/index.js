@@ -6,10 +6,11 @@ const StyledButton = styled.button`
   color: ${props => props.theme.colors[props.color] || "#FFF"};
   border: none;
   border-radius: 4px;
-  width: 100%;
+  width: ${props => props.$width || "100%"};
   font-family: 'Inter', sans-serif;
   font-weight: 500;
   cursor: pointer;
+
 
   &:hover {
     background: ${props => props.theme.colors[props.$hover] || "#FF427F"};
